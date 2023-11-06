@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const schema = mongoose.schema();
+const mongoose = require('../../config/mongo');
+const { Schema } = mongoose;
 
-const userSchema = new schema({
-  nome: String,
+const userSchema = new Schema({
+  name: String,
   email: String,
   password: String
 },

@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const schema = mongoose.schema();
+const mongoose = require('../../config/mongo');
+const { Schema } = mongoose;
 
-const newsSchema = new schema({
+const newsSchema = new Schema({
   title: String,
   img: String,
   text: String
