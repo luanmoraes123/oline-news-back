@@ -1,9 +1,13 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
+require('dotenv').config();
 const bcrypt = require('bcrypt');
 const newsModel = require('./module/news/newsModel');
 const userModel = require('./module/user/UserModel');
+const jwt = require('jsonwebtoken');
 app.use(express.json());
+app.use(cors);
 
 app.get('/users', async (req, res) => {
   const users = await userModel.find({});
@@ -31,7 +35,10 @@ app.post('/login', async (req, res) => {
     return res.status(400).json({ mensage: 'Usuario ou senha invalidos' });
   }
 
-  return res.status(200).json({ mensage: "login efetuado com sucesso" });
+  const token = jwt.sign({ _id: userExists._id }, process.env.JWT);
+
+
+  return res.status(200).json({ mensage: "login efetuado com sucesso", token: token });
 
 })
 
