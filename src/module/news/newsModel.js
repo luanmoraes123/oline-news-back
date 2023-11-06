@@ -2,9 +2,10 @@ const mongoose = require('../../config/mongo');
 const { Schema } = mongoose;
 
 const newsSchema = new Schema({
-  title: String,
+  titulo: String,
   img: String,
-  text: String
+  texto: String,
+  categoria: String
 },
   {
     timestamps: true

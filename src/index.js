@@ -7,7 +7,7 @@ const newsModel = require('./module/news/newsModel');
 const userModel = require('./module/user/UserModel');
 const jwt = require('jsonwebtoken');
 app.use(express.json());
-app.use(cors);
+app.use(cors());
 
 app.get('/users', async (req, res) => {
   const users = await userModel.find({});
@@ -70,11 +70,21 @@ app.post('/users', async (req, res) => {
 
   return res.status(201).json(user);
 })
-app.get('/news', (req, res) => {
-  return res.status(200).json([]);
+app.get('/news', async (req, res) => {
+  let filtroCategorias = {};
+  if (req.query.categoria) {
+    filtroCategoria = { categoria: req.query.categoria }
+  }
+  const news = await newsModel.find(filtroCategoria);
+  return res.status(200).json(news);
 })
-app.post('/news', (req, res) => {
-  return res.status(201).json([]);
+app.post('/news', async (req, res) => {
+  const noticia = req.body;
+  if (noticia) {
+    const noticiaCriada = await newsModel.create(req.body)
+    return res.status(201).json(noticiaCriada);
+  }
+  return res.status(400).json({ mensage: "error ao criar noticia" });
 })
 
 app.listen(8080, () => {
