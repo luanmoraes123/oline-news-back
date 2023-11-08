@@ -75,7 +75,7 @@ app.get('/news', async (req, res) => {
   if (req.query.categoria) {
     filtroCategoria = { categoria: req.query.categoria }
   }
-  const news = await newsModel.find(filtroCategoria);
+  const news = await newsModel.find(filtroCategorias);
   return res.status(200).json(news);
 })
 app.post('/news', async (req, res) => {
